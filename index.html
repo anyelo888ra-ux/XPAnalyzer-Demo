@@ -171,24 +171,26 @@ footer {
       <button class="os-btn" id="btn-android" onclick="switchOS('android')">📱 Android Sandbox</button>
     </div>
 
-    <!-- CONTENEDOR DE MAQUINAS VIRTUALES -->
-    <div class="vm-container">
-      <iframe 
-        id="vm-win"
-        class="vm-frame active"
-        src="https://www.apponfly.com/en/trial" 
-        allow="fullscreen"
-        title="Windows Sandbox">
-      </iframe>
+<!-- CONTENEDOR DE MAQUINAS VIRTUALES -->
+<div class="vm-container">
+  <!-- Windows 2000 mediante v86 (WASM / Emulación nativa en el navegador) -->
+  <iframe 
+    id="vm-win"
+    class="vm-frame active"
+    src="https://copy.sh/v86/?profile=windows2000" 
+    allow="fullscreen"
+    title="Windows 2000 Sandbox">
+  </iframe>
 
-      <iframe 
-        id="vm-android"
-        class="vm-frame"
-        src="https://appetize.io/embed/demo?device=nexus5&osVersion=8.1" 
-        allow="fullscreen"
-        title="Android Sandbox">
-      </iframe>
-    </div>
+  <!-- Android Sandbox -->
+  <iframe 
+    id="vm-android"
+    class="vm-frame"
+    src="https://appetize.io/embed/demo?device=nexus5&osVersion=8.1" 
+    allow="fullscreen"
+    title="Android Sandbox">
+  </iframe>
+</div>
 
     <h3 style="margin-top:15px;">Logs</h3>
     <div class="logs" id="logsBox">[XP.RUN] Esperando datos...</div>
