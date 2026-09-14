@@ -163,7 +163,7 @@ footer {
 // =============================
 function updateCapture() {
   const img = document.createElement("img");
-  img.src = "https://raw.githubusercontent.com/TU_USUARIO/TU_REPO/main/capture.png?cache=" + Date.now();
+  img.src = "https://raw.githubusercontent.com/anyelo888ra-ux/XPAnalyzer-Demo/main/capture.png?cache=" + Date.now();
   img.onerror = () => {
     document.getElementById("captureBox").innerHTML = "<span>No hay captura aún...</span>";
   };
@@ -180,7 +180,7 @@ updateCapture();
 // =============================
 async function updateLogs() {
   try {
-    const res = await fetch("https://raw.githubusercontent.com/TU_USUARIO/TU_REPO/main/logs.txt?cache=" + Date.now());
+    const res = await fetch("https://raw.githubusercontent.com/anyelo888ra-ux/XPAnalyzer-Demo/main/logs.txt?cache=" + Date.now());
     const text = await res.text();
     document.getElementById("logsBox").textContent = text;
   } catch {}
@@ -193,7 +193,7 @@ updateLogs();
 // =============================
 async function loadChat() {
   try {
-    const res = await fetch("https://raw.githubusercontent.com/TU_USUARIO/TU_REPO/main/chat.json?cache=" + Date.now());
+    const res = await fetch("https://raw.githubusercontent.com/anyelo888ra-ux/XPAnalyzer-Demo/main/chat.json?cache=" + Date.now());
     const chat = await res.json();
     const box = document.getElementById("chatBox");
     box.innerHTML = "";
