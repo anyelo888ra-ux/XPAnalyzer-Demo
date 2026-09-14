@@ -51,21 +51,51 @@ main {
   font-size: 17px;
 }
 
-#captureBox {
+/* SECTOR DE SELECTOR DE OS Y VMS */
+.os-selector {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.os-btn {
+  flex: 1;
+  margin-top: 0;
+  padding: 10px;
+  background: #1e293b;
+  color: #94a3b8;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.os-btn.active {
+  background: #2563eb;
+  color: #ffffff;
+  border-color: #3b82f6;
+  box-shadow: 0 0 12px rgba(37, 99, 235, 0.4);
+}
+
+.vm-container {
   width: 100%;
-  height: 260px;
+  height: 550px;
   background: #020617;
   border: 1px solid #1f2933;
   border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  overflow: hidden;
 }
 
-#captureBox img {
-  max-width: 100%;
-  max-height: 100%;
-  border-radius: 8px;
+.vm-frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: none;
+}
+
+.vm-frame.active {
+  display: block;
 }
 
 .logs {
@@ -122,7 +152,7 @@ footer {
 <body>
 
 <header>
-  <img src="logo.png">
+  <img src="logo.png" alt="XP.RUN Logo">
   <div>
     <h1 style="margin:0; font-size:20px;">XP.RUN</h1>
     <small>Live Sandbox Monitor</small>
@@ -134,8 +164,30 @@ footer {
   <!-- PANEL SANDBOX -->
   <section class="card">
     <h2>Sandbox View</h2>
-    <div id="captureBox">
-      <span>Cargando captura...</span>
+    
+    <!-- SELECTOR DE ENTORNO DE EJECUCIÓN -->
+    <div class="os-selector">
+      <button class="os-btn active" id="btn-win" onclick="switchOS('win')">🖥️ Windows Sandbox</button>
+      <button class="os-btn" id="btn-android" onclick="switchOS('android')">📱 Android Sandbox</button>
+    </div>
+
+    <!-- CONTENEDOR DE MAQUINAS VIRTUALES -->
+    <div class="vm-container">
+      <iframe 
+        id="vm-win"
+        class="vm-frame active"
+        src="https://www.apponfly.com/en/trial" 
+        allow="fullscreen"
+        title="Windows Sandbox">
+      </iframe>
+
+      <iframe 
+        id="vm-android"
+        class="vm-frame"
+        src="https://appetize.io/embed/demo?device=nexus5&osVersion=8.1" 
+        allow="fullscreen"
+        title="Android Sandbox">
+      </iframe>
     </div>
 
     <h3 style="margin-top:15px;">Logs</h3>
@@ -159,21 +211,26 @@ footer {
 
 <script>
 // =============================
-// CAPTURA EN VIVO
+// SELECTOR DE SISTEMA OPERATIVO
 // =============================
-function updateCapture() {
-  const img = document.createElement("img");
-  img.src = "https://raw.githubusercontent.com/anyelo888ra-ux/XPAnalyzer-Demo/main/capture.png?cache=" + Date.now();
-  img.onerror = () => {
-    document.getElementById("captureBox").innerHTML = "<span>No hay captura aún...</span>";
-  };
-  img.onload = () => {
-    document.getElementById("captureBox").innerHTML = "";
-    document.getElementById("captureBox").appendChild(img);
-  };
+function switchOS(os) {
+  const winFrame = document.getElementById("vm-win");
+  const androidFrame = document.getElementById("vm-android");
+  const btnWin = document.getElementById("btn-win");
+  const btnAndroid = document.getElementById("btn-android");
+
+  if (os === 'win') {
+    winFrame.classList.add("active");
+    androidFrame.classList.remove("active");
+    btnWin.classList.add("active");
+    btnAndroid.classList.remove("active");
+  } else if (os === 'android') {
+    androidFrame.classList.add("active");
+    winFrame.classList.remove("active");
+    btnAndroid.classList.add("active");
+    btnWin.classList.remove("active");
+  }
 }
-setInterval(updateCapture, 2000);
-updateCapture();
 
 // =============================
 // LOGS EN VIVO
@@ -207,7 +264,7 @@ setInterval(loadChat, 2000);
 loadChat();
 
 // =============================
-// ENVIAR MENSAJE (solo tú)
+// ENVIAR MENSAJE
 // =============================
 function sendMessage() {
   const msg = document.getElementById("chatInput").value.trim();
